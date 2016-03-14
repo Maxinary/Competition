@@ -22,7 +22,6 @@ def swapToClose(lis, index):
 def panSort(lis):
 	sorted = False
 	while sorted==False:
-		movement = 0
 		for i in range(len(lis)-1,-1,-1):#iterate backwards
 			if i==0:#sorted
 				sorted = True
