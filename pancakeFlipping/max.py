@@ -9,12 +9,17 @@ def flip(lis, index):
 	count+=1
 	return lis[:index]+lis[index:][::-1]
 
-def swapToClose(lis, index):
+def getNextLargest(s,k):
+	if k in s[:len(s)-1]:
+		return s[s.index(k)+1]
+	return None
+
+def swapToClose(lis, index, s):
 	#move to the top
-	lis = flip(lis, index)
-	if lis[index]-1 in lis[:len(lis)-1]:
-		#print("moving",lis[index]+1,"next to",lis[index])
-		lis = flip(lis,lis.index(lis[index]-1)+1)
+	if index != len(lis)-1:
+		lis = flip(lis, index)
+	if getNextLargest(s,lis[index]) != None:
+		lis = flip(lis,lis.index(getNextLargest(s,lis[index]))+1)
 	else:#move to bottom, lowest element
 		lis = flip(lis,0)
 		lis = flip(lis,1)
@@ -22,17 +27,20 @@ def swapToClose(lis, index):
 
 def panSort(lis):
 	sorted = False
+	s = list(set(lis))
 	while sorted==False:
 		for i in range(len(lis)-1,-1,-1):#iterate backwards
 			if i==0:#sorted
 				sorted = True
-			elif lis[i]-lis[i-1] != 1:
-				lis = swapToClose(lis,i)
+			elif lis[i-1] != getNextLargest(s,lis[i]):
+				print("meme:",lis[i],lis[i-1])
+				lis = swapToClose(lis, i, s)
 				break;
 		print(count)
 		print("\t",lis)
 	return lis
 
-k = list(range(5))
-shuffle(k)
-panSort(k)
+if __name__ == "__main__":
+	k = list(range(10))
+	shuffle(k)
+	panSort(k)
