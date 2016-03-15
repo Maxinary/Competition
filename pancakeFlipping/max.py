@@ -12,9 +12,9 @@ def flip(lis, index):
 def swapToClose(lis, index):
 	#move to the top
 	lis = flip(lis, index)
-	if lis[index]+1 in lis[:len(lis)-1]:
+	if lis[index]-1 in lis[:len(lis)-1]:
 		#print("moving",lis[index]+1,"next to",lis[index])
-		lis = flip(lis,lis.index(lis[index]+1)+1)
+		lis = flip(lis,lis.index(lis[index]-1)+1)
 	else:#move to bottom, lowest element
 		lis = flip(lis,0)
 		lis = flip(lis,1)
@@ -26,13 +26,13 @@ def panSort(lis):
 		for i in range(len(lis)-1,-1,-1):#iterate backwards
 			if i==0:#sorted
 				sorted = True
-			elif lis[i]-lis[i-1] != -1:
+			elif lis[i]-lis[i-1] != 1:
 				lis = swapToClose(lis,i)
 				break;
 		print(count)
 		print("\t",lis)
 	return lis
 
-k = list(range(20))
+k = list(range(5))
 shuffle(k)
 panSort(k)
