@@ -15,8 +15,9 @@ def swapToClose(lis, index):
 	if lis[index]+1 in lis[:len(lis)-1]:
 		#print("moving",lis[index]+1,"next to",lis[index])
 		lis = flip(lis,lis.index(lis[index]+1)+1)
-	else:
-		lis = lis[::-1]
+	else:#move to bottom, lowest element
+		lis = flip(lis,0)
+		lis = flip(lis,1)
 	return lis
 
 def panSort(lis):
