@@ -1,8 +1,5 @@
 from random import shuffle
 
-''' 
-NOTE: Currently only sorts lists which have the characteristics of shuffle(range(n)) where n is an int
-'''
 count = 0
 def flip(lis, index):
 	global count
@@ -14,12 +11,20 @@ def getNextLargest(s,k):
 		return s[s.index(k)+1]
 	return None
 
+def rIndex(ar, element):
+	index = -1
+	for i in range(len(ar)):
+		if ar[i]==element:
+			index = i
+	return index
+
 def swapToClose(lis, index, s):
 	#move to the top
 	if index != len(lis)-1:
 		lis = flip(lis, index)
 	if getNextLargest(s,lis[index]) != None:
-		lis = flip(lis,lis.index(getNextLargest(s,lis[index]))+1)
+		lis = flip(lis,rIndex(lis,getNextLargest(s,lis[index]))+1)
+		lis = flip(lis,rIndex(lis,getNextLargest(s,lis[index]))+2)
 	else:#move to bottom, lowest element
 		lis = flip(lis,0)
 		lis = flip(lis,1)
@@ -32,8 +37,7 @@ def panSort(lis):
 		for i in range(len(lis)-1,-1,-1):#iterate backwards
 			if i==0:#sorted
 				sorted = True
-			elif lis[i-1] != getNextLargest(s,lis[i]):
-				print("meme:",lis[i],lis[i-1])
+			elif lis[i-1] != getNextLargest(s,lis[i]) and lis[i-1] != lis[i]:
 				lis = swapToClose(lis, i, s)
 				break;
 		print(count)
@@ -41,6 +45,7 @@ def panSort(lis):
 	return lis
 
 if __name__ == "__main__":
-	k = list(range(10))
+	k = list(range(10))*2
 	shuffle(k)
+	k = k[:10]
 	panSort(k)
