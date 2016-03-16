@@ -44,6 +44,21 @@ def panSort(lis):
 		print("\t",lis)
 	return lis
 
+def panSimpleSort(lis):#efficiency: 3xlen(lis)
+	s = list(set(lis))[::-1]
+	elements = -1
+	for i in range(len(s)):
+		while rIndex(lis,s[i]) > elements:
+			elements+=1
+			if i != len(lis)-1:
+				lis = flip(lis, rIndex(lis,s[i]))
+			lis = flip(lis,elements)
+			lis = flip(lis,elements+1)
+			print(count)
+			print("\t",lis)
+			
+	print(count)
+
 if __name__ == "__main__":
 	k = list(range(10))*2
 	shuffle(k)
