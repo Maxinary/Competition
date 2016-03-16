@@ -26,7 +26,7 @@ def swapToClose(lis, index, s):
 		lis = flip(lis, index)
 	if getNextLargest(s,lis[index]) != None:
 		lis = flip(lis,rIndex(lis,g)+1)
-		if rIndex(lis, v) > rIndex(lis,g)+1:
+		if rIndex(lis, v) == len(lis)-1:
 			lis = flip(lis,rIndex(lis,g)+2)
 	else:#move to bottom, lowest element
 		lis = flip(lis,0)
@@ -41,11 +41,11 @@ def panSort(lis):
 			if i==0:#sorted
 				sorted = True
 			elif lis[i-1] != getNextLargest(s,lis[i]) and lis[i-1] != lis[i]:
-				print("moving: ",lis[i],",",getNextLargest(s,lis[i]))
+				#print("moving: ",lis[i],",", getNextLargest(s,lis[i]))
 				lis = swapToClose(lis, i, s)
 				break;
-		print(count)
-		print("\t",lis)
+		#print(count)
+		#print("\t",lis)
 	return lis
 
 def panSimpleSort(lis):#efficiency: 3xlen(lis)
@@ -64,8 +64,23 @@ def panSimpleSort(lis):#efficiency: 3xlen(lis)
 	print(count)
 
 if __name__ == "__main__":
-	count = 0
-	k = list(range(20))*3
-	shuffle(k)
-	k = k[:10]
-	panSort(k)
+	tNums = [0,0]
+	kNums = [0,0]
+	for i in range(32):
+		count = 0
+		k = list(range(20))
+		shuffle(k)
+		panSort(k)
+		tNums[0]+= count
+		tNums[1]+=1
+	for i in range(32):
+		count = 0
+		k = list(range(20))*2
+		shuffle(k)
+		k = k[:20]
+		panSort(k)
+		kNums[0] += count
+		kNums[1] += 1
+	print("tNums AVG", tNums[0]/tNums[1])
+	print("kNums AVG", kNums[0]/kNums[1])
+	
